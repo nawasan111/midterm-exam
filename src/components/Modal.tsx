@@ -27,7 +27,7 @@ function Modal({
   if (isOpen) {
     return (
       <div className="modalContainer" onClick={handleClose}>
-        <div className={`modal ${custom_modal}`}>
+        <div className={`modalyo ${custom_modal}`}>
           <div className="modal__head">
             <h2>{modalLable}</h2>
             <span className="modal__close" onClick={() => onClose()}>
