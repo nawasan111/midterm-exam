@@ -5,7 +5,7 @@ export interface ModalProps {
   isOpen: boolean;
   modalLable: string | ReactElement;
   children: string | ReactElement | ReactElement[] | React.ReactNode;
-  custom_modal?: unknown;
+  custom_modal?: string;
   onClose: Function;
 }
 function Modal({
@@ -18,7 +18,9 @@ function Modal({
   const handleClose = (
     e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>
   ) => {
-    if (e.currentTarget.className === "modalContainer") {
+    console.log(e.currentTarget.className);
+    // @ts-ignore
+    if (e.target.className === "modalContainer") {
       onClose();
     }
     return null;
