@@ -10,19 +10,20 @@ import {
 } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import "../assets/css/addForm.css";
+import OwnerInterface from "../interface/owner";
 
 export interface AddPetProps {
   onClose: Function;
-  open: Function;
+  isOpen: boolean;
 }
-function AddPet({ onClose, open }: AddPetProps) {
+function AddPet({ onClose, isOpen }: AddPetProps) {
   const [name, setName] = useState("");
   const [type, setType] = useState("");
-  const [owner, setOwner] = useState("");
+  const [owner, setOwner] = useState<string>("");
   const [picture, setPicture] = useState<File>();
   const [description, setDescription] = useState("");
 
-  const [owners, setOwners] = useState([]);
+  const [owners, setOwners] = useState<OwnerInterface[]>([]);
 
   /* function to add new pet to firestore */
   const handleSubmit = async (e: FormEvent) => {
@@ -64,17 +65,24 @@ function AddPet({ onClose, open }: AddPetProps) {
   useEffect(() => {
     const q = query(collection(db, "owners"), orderBy("name", "asc"));
     onSnapshot(q, (querySnapshot) => {
-      setOwners(
-        querySnapshot.docs.map((doc) => ({
+      let owner_all: OwnerInterface[] = [];
+      querySnapshot.docs.map((doc) => {
+        owner_all.push({
           id: doc.id,
-          data: doc.data(),
-        }))
-      );
+          name: doc.data().name ?? "none",
+          description: doc.data().description,
+        });
+      });
+      setOwners(owner_all);
     });
   }, []);
 
   return (
-    <Modal modalLable="เพิ่มข้อมูลสัตว์เลี้ยง" onClose={onClose} open={open}>
+    <Modal
+      modalLable="เพิ่มข้อมูลสัตว์เลี้ยง"
+      onClose={onClose}
+      isOpen={isOpen}
+    >
       <form onSubmit={handleSubmit} className="addForm" name="addPet">
         <input
           type="text"
@@ -104,8 +112,10 @@ function AddPet({ onClose, open }: AddPetProps) {
           <option value="0" selected>
             เลือกเจ้าของ
           </option>
-          {owners?.map((owner, i) => (
-            <option value={owner.id}>{owner.data.name}</option>
+          {owners?.map((own, i) => (
+            <option key={i} value={own.id}>
+              {own.name}
+            </option>
           ))}
         </select>
         <input

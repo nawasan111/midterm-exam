@@ -2,14 +2,14 @@ import "../assets/css/modal.css";
 import { MouseEvent, ReactElement } from "react";
 
 export interface ModalProps {
-  open: unknown;
+  isOpen: boolean;
   modalLable: string | ReactElement;
   children: string | ReactElement | ReactElement[] | React.ReactNode;
   custom_modal?: unknown;
   onClose: Function;
 }
 function Modal({
-  open,
+  isOpen,
   modalLable,
   children,
   custom_modal,
@@ -24,7 +24,7 @@ function Modal({
     return null;
   };
 
-  if (open) {
+  if (isOpen) {
     return (
       <div className="modalContainer" onClick={handleClose}>
         <div className={`modal ${custom_modal}`}>

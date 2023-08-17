@@ -1,8 +1,8 @@
-export interface pet {
-                    name: string,
-                owner: string,
-                type: type,
-                picture: url,
-                description: description,
- 
+export default interface PetInterface {
+  id: string;
+  name: string;
+  owner: string;
+  type: string;
+  picture: string;
+  description: string;
 }

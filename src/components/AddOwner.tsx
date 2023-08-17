@@ -6,10 +6,10 @@ import "../assets/css/addForm.css";
 
 export interface AddOwnerProps {
   onClose: Function;
-  open: Function;
+  isOpen: boolean;
 }
 
-function AddOwner({ onClose, open }: AddOwnerProps) {
+function AddOwner({ onClose, isOpen }: AddOwnerProps) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
@@ -30,7 +30,7 @@ function AddOwner({ onClose, open }: AddOwnerProps) {
   useEffect(() => {}, []);
 
   return (
-    <Modal modalLable="เพิ่มข้อมูลเจ้าของ" onClose={onClose} open={open}>
+    <Modal modalLable="เพิ่มข้อมูลเจ้าของ" onClose={onClose} isOpen={isOpen}>
       <form onSubmit={handleSubmit} className="addForm" name="addOwner">
         <input
           type="text"
