@@ -19,7 +19,7 @@ function AddPet({ onClose, open }: AddPetProps) {
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [owner, setOwner] = useState("");
-  const [picture, setPicture] = useState("");
+  const [picture, setPicture] = useState<File>();
   const [description, setDescription] = useState("");
 
   const [owners, setOwners] = useState([]);
@@ -85,7 +85,7 @@ function AddPet({ onClose, open }: AddPetProps) {
         />
         <select
           value={type}
-          class="form-select"
+          className="form-select"
           onChange={(e) => setType(e.target.value)}
         >
           <option value="0" selected>
@@ -98,7 +98,7 @@ function AddPet({ onClose, open }: AddPetProps) {
         </select>
         <select
           value={owner}
-          class="form-select"
+          className="form-select"
           onChange={(e) => setOwner(e.target.value)}
         >
           <option value="0" selected>
@@ -109,10 +109,14 @@ function AddPet({ onClose, open }: AddPetProps) {
           ))}
         </select>
         <input
-          class="form-control file"
+          className="form-control file"
           type="file"
           accept="image/*"
-          onChange={(e) => setPicture(e.target.files[0])}
+          onChange={(e) => {
+            if (e.target.files && e.target.files[0]) {
+              setPicture(e.target.files[0]);
+            }
+          }}
         />
         <textarea
           onChange={(e) => setDescription(e.target.value)}
