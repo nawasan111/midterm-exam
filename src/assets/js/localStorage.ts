@@ -26,7 +26,7 @@ class StorageLocal {
       second: "#6c757d",
       warning: "#b5babe",
       danger: "#dc3545",
-      theme: "#212529",
+      theme: "##3d3846",
     },
     fontFamily: "Prompt",
   };
