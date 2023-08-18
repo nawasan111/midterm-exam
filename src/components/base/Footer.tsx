@@ -2,8 +2,9 @@ import StorageLocal from "../../assets/js/localStorage";
 
 export default function Footer() {
   const prefs = new StorageLocal();
+  if (prefs.prefs.hideFooter) return <></>;
   return (
-    <nav
+    <footer
       style={{ backgroundColor: prefs.prefs.color.theme }}
       className="navbar fixed-bottom navbar-expand-sm navbar-dark "
     >
@@ -12,6 +13,6 @@ export default function Footer() {
           Footer
         </a>
       </div>
-    </nav>
+    </footer>
   );
 }

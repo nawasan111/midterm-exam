@@ -1,5 +1,6 @@
 type prefsType = {
   fontFamily: string;
+  hideFooter: boolean;
   color: {
     primary: string;
     second: string;
@@ -10,6 +11,7 @@ type prefsType = {
 };
 export type prefsTypeSome = {
   fontFamily?: string;
+  hideFooter?: boolean;
   color?: {
     primary?: string;
     second?: string;
@@ -21,6 +23,7 @@ export type prefsTypeSome = {
 
 class StorageLocal {
   public prefs: prefsType = {
+    hideFooter: false,
     color: {
       primary: "#0d6efd",
       second: "#6c757d",

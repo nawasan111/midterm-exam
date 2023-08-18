@@ -128,6 +128,20 @@ export default function Prefs() {
             />
           </div>
         </div>
+        <div style={{ display: "flex" }}>
+          <input
+            className="form-check mx-2"
+            type="checkbox"
+            checked={prefsState.hideFooter}
+            onChange={(e) =>
+              setPrefsState({
+                ...prefsState,
+                hideFooter: e.currentTarget.checked,
+              })
+            }
+          />
+          <label htmlFor="hide footer">hide footer</label>
+        </div>
 
         <div className="my-2 text-end">
           <button
