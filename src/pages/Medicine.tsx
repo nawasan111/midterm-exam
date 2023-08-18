@@ -30,7 +30,9 @@ export default function Medicine() {
   }>({ isEdit: false, data: { detail: "", id: "", name: "" } });
 
   const medicineFilter = medicineList.filter(
-    (med) => med.name.includes(keyword) || med.detail.includes(keyword)
+    (med) =>
+      med.name.toLocaleLowerCase().includes(keyword) ||
+      med.detail.toLocaleLowerCase().includes(keyword)
   );
 
   const fetchMedicine = () => {

@@ -1,4 +1,4 @@
-import { TbSearch } from "react-icons/tb";
+import { GrClearOption } from "react-icons/gr";
 
 export interface SearchBoxProps {
   label: string;
@@ -25,9 +25,9 @@ export default function SearchBox({
           className="btn btn-outline-secondary"
           type="button"
           id="button-addon2"
-          onClick={() => {}}
+          onClick={() => setKeyword("")}
         >
-          <TbSearch style={{ fontSize: 20 }} />
+          <GrClearOption style={{ fontSize: 20 }} />
         </button>
       </div>
     </div>
