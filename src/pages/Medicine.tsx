@@ -5,13 +5,21 @@ import PopupEvent from "../components/PopupEvent";
 import AddMedicine from "../components/AddMedicine";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db } from "../assets/js/firebase";
+import EditMedicine from "../components/EditMedicine";
 import MedicineInterface from "../interface/medicine";
 
 export default function Medicine() {
   const [keyword, setKeyword] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [medicineList, setMedicineList] = useState<MedicineInterface[]>([]);
+  const [editing, setEditing] = useState<{
+    isEdit: boolean;
+    data: MedicineInterface;
+  }>({ isEdit: false, data: { detail: "", id: "", name: "" } });
 
+  const medicineFilter = medicineList.filter(
+    (med) => med.name.includes(keyword) || med.detail.includes(keyword)
+  );
   const handleOrderBy = (mode: string) => {};
 
   useEffect(() => {
@@ -53,9 +61,49 @@ export default function Medicine() {
           onClose={() => setIsPopupOpen(false)}
         />
       )}
-      {medicineList.map((medicine) => (
-        <div>{medicine.name}</div>
-      ))}
+      <div style={{ overflowX: "scroll" }}>
+        <table className="table table-hover">
+          <thead>
+            <th>ลำดับ</th>
+            <th>ชื่อ</th>
+            <th>รายละเอียด</th>
+            <th>แก้ไข</th>
+            <th>ลบ</th>
+          </thead>
+          <tbody>
+            {medicineFilter.map((medicine, idx) => (
+              <tr key={idx}>
+                <td>{idx + 1}</td>
+                <td>{medicine.name}</td>
+                <td>{medicine.detail}</td>
+                <td>
+                  <button
+                    className="btn btn-outline-dark"
+                    onClick={() =>
+                      setEditing({
+                        isEdit: true,
+                        data: medicine,
+                      })
+                    }
+                  >
+                    แก้ไข
+                  </button>
+                </td>
+                <td>
+                  <button className="btn btn-danger">ลบ</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {editing.isEdit && (
+        <EditMedicine
+          isOpen={editing.isEdit}
+          medicineData={editing.data}
+          onClose={() => setEditing({ ...editing, isEdit: false })}
+        />
+      )}
     </main>
   );
 }
