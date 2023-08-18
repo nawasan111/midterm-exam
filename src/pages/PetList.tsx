@@ -1,21 +1,9 @@
 import { useState, useEffect } from "react";
-import {
-  collection,
-  query,
-  orderBy,
-  onSnapshot,
-  where,
-} from "firebase/firestore";
+import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import { db } from "../assets/js/firebase";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import imagePaw from "../assets/images/animal_paw.png";
-import {
-  TbCirclePlus,
-  TbDogBowl,
-  TbSortAscendingLetters,
-  TbSortDescendingLetters,
-  TbSearch,
-} from "react-icons/tb";
+import { TbDogBowl } from "react-icons/tb";
 import { FaDog, FaCat } from "react-icons/fa";
 import { GiRabbitHead } from "react-icons/gi";
 import AddPet from "../components/AddPet";
@@ -26,33 +14,26 @@ import PopupEvent from "../components/PopupEvent";
 
 const PetList = () => {
   const [openAddModal, setOpenAddModal] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
   const [pets, setPets] = useState<PetInterface[]>([]);
   const [keyword, setKeyword] = useState("");
+
+  const petsFilter = pets.filter(
+    (pet) =>
+      pet.name.includes(keyword) ||
+      pet.description.includes(keyword) ||
+      (pet.type && pet?.type?.includes(keyword)) ||
+      (pet.gender && pet.gender.includes(keyword))
+  );
 
   useEffect(() => {
     document.title = "รายชื่อสัตว์";
   }, []);
   useEffect(() => {
-    const q = query(collection(db, "pets"), orderBy("name", "asc"));
-    onSnapshot(q, (querySnapshot) => {
-      setPets(
-        querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          description: doc.data().description,
-          name: doc.data().name,
-          gender: doc.data().gender,
-          owner: doc.data().owner,
-          picture: doc.data().picture,
-          type: doc.data().type,
-        }))
-      );
-    });
-  }, []);
-
-  const handleOrderBy = (order: string) => {
+    let sort = searchParams.get("sort") ?? "";
     const q = query(
       collection(db, "pets"),
-      orderBy("name", order == "asc" ? "asc" : "desc")
+      orderBy("name", sort === "asc" ? "asc" : "desc")
     );
     onSnapshot(q, (querySnapshot) => {
       setPets(
@@ -67,45 +48,7 @@ const PetList = () => {
         }))
       );
     });
-  };
-
-  const handleSearch = (keyword: string) => {
-    if (keyword) {
-      const q = query(
-        collection(db, "pets"),
-        where("name", ">=", keyword),
-        where("name", "<=", keyword + "\uf8ff")
-      );
-      onSnapshot(q, (querySnapshot) => {
-        setPets(
-          querySnapshot.docs.map((doc) => ({
-            id: doc.id,
-            description: doc.data().description,
-            name: doc.data().name,
-            gender: doc.data().gender,
-            owner: doc.data().owner,
-            picture: doc.data().picture,
-            type: doc.data().type,
-          }))
-        );
-      });
-    } else {
-      const q = query(collection(db, "pets"), orderBy("name", "asc"));
-      onSnapshot(q, (querySnapshot) => {
-        setPets(
-          querySnapshot.docs.map((doc) => ({
-            id: doc.id,
-            description: doc.data().description,
-            name: doc.data().name,
-            gender: doc.data().gender,
-            owner: doc.data().owner,
-            picture: doc.data().picture,
-            type: doc.data().type,
-          }))
-        );
-      });
-    }
-  };
+  }, [searchParams]);
 
   const renderPetTypeIcon = (type: string) => {
     switch (type) {
@@ -135,10 +78,14 @@ const PetList = () => {
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <SearchBox label="ค้นหาสัตว์เลี้ยง" keyword={keyword} setKeyword={setKeyword} />
+        <SearchBox
+          label="ค้นหาสัตว์เลี้ยง"
+          keyword={keyword}
+          setKeyword={setKeyword}
+        />
         <SortBox
-          onAsc={() => handleOrderBy("asc")}
-          onDesc={() => handleOrderBy("desc")}
+          onAsc={() => setSearchParams({ sort: "asc" })}
+          onDesc={() => setSearchParams({ sort: "desc" })}
         />
         <PopupEvent
           label="เพิ่มข้อมูลสัตว์เลี้ยง"
@@ -146,7 +93,7 @@ const PetList = () => {
         />
       </div>
       <div className="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-3">
-        {pets?.map((pet, i) => (
+        {petsFilter?.map((pet, i) => (
           <div className="col" key={i}>
             <div style={{ width: "300px" }} className="card shadow-sm">
               <img
