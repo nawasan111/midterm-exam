@@ -16,7 +16,7 @@ const PetList = () => {
   const [openAddModal, setOpenAddModal] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [pets, setPets] = useState<PetInterface[]>([]);
-  const [keyword, setKeyword] = useState("");
+  const [keyword, setKeyword] = useState(searchParams.get("q") ?? "");
 
   const petsFilter = pets.filter(
     (pet) =>
@@ -75,6 +75,25 @@ const PetList = () => {
     }
   };
 
+  const setAllSearchParams = ({ sort, q }: { sort?: string; q?: string }) => {
+    let params: { [key: string]: string } = {};
+    if (q) params["q"] = q;
+    else {
+      q = searchParams.get("q") ?? "";
+      if (q) params["q"] = q;
+    }
+    if (sort) params["sort"] = sort;
+    else {
+      sort = searchParams.get("sort") ?? "";
+      if (sort) params["sort"] = sort;
+    }
+    setSearchParams(params);
+  };
+
+  useEffect(() => {
+    setAllSearchParams({ q: keyword });
+  }, [keyword]);
+
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <div style={{ display: "flex", flexDirection: "row" }}>
@@ -84,8 +103,8 @@ const PetList = () => {
           setKeyword={setKeyword}
         />
         <SortBox
-          onAsc={() => setSearchParams({ sort: "asc" })}
-          onDesc={() => setSearchParams({ sort: "desc" })}
+          onAsc={() => setAllSearchParams({ sort: "asc" })}
+          onDesc={() => setAllSearchParams({ sort: "desc" })}
         />
         <PopupEvent
           label="เพิ่มข้อมูลสัตว์เลี้ยง"
