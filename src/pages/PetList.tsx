@@ -117,6 +117,9 @@ const PetList = () => {
             <div style={{ width: "300px" }} className="card shadow-sm">
               <img
                 src={pet.picture ? pet.picture : imagePaw}
+                onError={(e) => {
+                  e.currentTarget.src = imagePaw;
+                }}
                 style={{ objectFit: "cover" }}
                 width={300}
                 height={170}

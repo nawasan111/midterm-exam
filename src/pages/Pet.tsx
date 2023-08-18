@@ -172,6 +172,9 @@ const Pet = () => {
       <div style={{ display: "flex", flexDirection: "column", padding: 10 }}>
         <img
           src={pet && pet.picture ? pet.picture : imagePaw}
+          onError={(e) => {
+            e.currentTarget.src = imagePaw;
+          }}
           className="shadow rounded-circle"
           style={{ width: 200, height: 200, objectFit: "cover" }}
           alt={pet ? pet.name : ""}
@@ -192,7 +195,7 @@ const Pet = () => {
         </h3>
         <p className="lead">
           <b>เจ้าของ: </b>
-          {owner}
+          {owner.length ? owner : "ไม่พบรายชื่อเจ้าของ"}
         </p>
         <p className="lead">{pet ? pet.description : "none"}</p>
         <div className="btn-group" role="group">

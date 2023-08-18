@@ -10,7 +10,12 @@ import {
   updateDoc,
   doc,
 } from "firebase/firestore";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
 import "../assets/css/addForm.css";
 import OwnerInterface from "../interface/owner";
 
@@ -59,6 +64,17 @@ const EditPet: FC<EditPetProps> = ({
           (err) => console.log(err), // ถ้า error ให้ทำอะไร
           () => {
             // ถ้า upload สำเร็จ ให้ทำอะไร
+            let url = new URL(petPicture ?? "").pathname.toString();
+            let pathname = url.split("/");
+            let pathnameLast = pathname[pathname.length - 1];
+            pathnameLast = decodeURIComponent(pathnameLast);
+            const desertRef = ref(storage, pathnameLast);
+            try {
+              deleteObject(desertRef);
+            } catch (err) {
+              console.log(err);
+            }
+
             getDownloadURL(uploadTask.snapshot.ref).then((url) => {
               updateDoc(doc(db, "pets", id), {
                 name: name,
