@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { db } from "../assets/js/firebase";
 import {
   doc,
   getDoc,
@@ -7,8 +8,9 @@ import {
   orderBy,
   onSnapshot,
   deleteDoc,
+  where,
+  documentId,
 } from "firebase/firestore";
-import { db } from "../assets/js/firebase";
 import imagePaw from "../assets/images/animal_paw.png";
 import { TbCirclePlus, TbDogBowl, TbEdit, TbCircleX } from "react-icons/tb";
 import { FaDog, FaCat } from "react-icons/fa";
@@ -33,24 +35,28 @@ const Pet = () => {
   const [openEditModal, setOpenEditModal] = useState(false);
 
   const getPetDoc = async (id: string) => {
-    const petSnapshot = await getDoc(doc(db, "pets", id));
-    if (petSnapshot.exists()) {
-      const petData = petSnapshot.data();
-      const ownerId = petSnapshot.data().owner;
-      setPet({
-        id: petSnapshot.id,
-        name: petSnapshot.data().name,
-        description: petSnapshot.data().description,
-        gender: petSnapshot.data().gender,
-        owner: petData.owner,
-        picture: petData.picture,
-        type: petData.type,
-      });
-      getOwnerDoc(ownerId);
-      getTreatmentDoc(id);
-    } else {
-      console.log("Pet doesn't exist");
-    }
+    const queryPet = query(
+      collection(db, "pets"),
+      where(documentId(), "==", id)
+    );
+    onSnapshot(queryPet, (snap) => {
+      if (snap.docs.length) {
+        console.log(snap.docs[0].data());
+        const petData = snap.docs[0].data();
+        const ownerId = petData.owner;
+        setPet({
+          id: snap.docs[0].id,
+          name: petData.name,
+          description: petData.description,
+          gender: petData.gender,
+          owner: petData.owner,
+          picture: petData.picture,
+          type: petData.type,
+        });
+        getOwnerDoc(ownerId);
+        getTreatmentDoc(id);
+      }
+    });
   };
 
   const getOwnerDoc = async (id: string) => {
@@ -79,7 +85,7 @@ const Pet = () => {
     });
   };
 
-  const deletePet = (petid: string) => {
+  const deletePet = () => {
     confirmAlert({
       title: "ต้องการลบข้อมูลนี้?",
       message: "Are you sure delete this pet?",
@@ -181,7 +187,7 @@ const Pet = () => {
           <button
             type="button"
             className="btn btn-outline-danger"
-            onClick={() => deletePet(petId)}
+            onClick={() => deletePet()}
           >
             <TbCircleX style={{ fontSize: 25, paddingBottom: 3 }} /> ลบข้อมูล
           </button>

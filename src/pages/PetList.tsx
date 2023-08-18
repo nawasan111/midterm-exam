@@ -163,7 +163,7 @@ const PetList = () => {
                   <b>{pet.name}</b>
                 </h3>
                 <p className="card-text">{pet.description}</p>
-                <div className="d-flex justify-content-between align-items-center">
+                <div className="text-center">
                   <div className="btn-group">
                     <Link
                       to={`/pet/view/${pet.id}`}
