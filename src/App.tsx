@@ -3,7 +3,7 @@ import Home from "./components/Home";
 import PetList from "./components/PetList";
 import Pet from "./components/Pet";
 import OwnerList from "./components/OwnerList";
-import { BrowserRouter as Router,Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Footer from "./components/base/Footer";
 import Navbar from "./components/base/Navbar";
 import Sidebar from "./components/base/Sidebar";
@@ -12,7 +12,6 @@ import Sidebar from "./components/base/Sidebar";
 import "bootstrap/dist/css/bootstrap.min.css";
 // Bootstrap Bundle JS
 import "bootstrap/dist/js/bootstrap.bundle.min";
-
 
 function App() {
   return (
