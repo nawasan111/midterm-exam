@@ -19,14 +19,16 @@ export interface AddPetProps {
 function AddPet({ onClose, isOpen }: AddPetProps) {
   const [name, setName] = useState("");
   const [type, setType] = useState("");
+  const [gender, setGender] = useState("");
   const [owner, setOwner] = useState<string>("");
   const [picture, setPicture] = useState<File>();
   const [description, setDescription] = useState("");
-
   const [owners, setOwners] = useState<OwnerInterface[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   /* function to add new pet to firestore */
   const handleSubmit = async (e: FormEvent) => {
+    setIsLoading(true);
     e.preventDefault();
     try {
       if (picture) {
@@ -42,20 +44,16 @@ function AddPet({ onClose, isOpen }: AddPetProps) {
               addDoc(collection(db, "pets"), {
                 name: name,
                 owner: owner,
+                gender: gender,
                 type: type,
                 picture: url,
                 description: description,
               });
               onClose();
+              setIsLoading(false);
             });
           }
         );
-      } else {
-        addDoc(collection(db, "pets"), {
-          name: name,
-          owner: owner,
-        });
-        onClose();
       }
     } catch (err) {
       alert(err);
@@ -87,16 +85,19 @@ function AddPet({ onClose, isOpen }: AddPetProps) {
         <input
           type="text"
           name="name"
+          className="form-control my-2"
           onChange={(e) => setName(e.target.value)}
           value={name}
           placeholder="กรอกชื่อ"
+          required
         />
         <select
           value={type}
-          className="form-select"
+          className="form-select my-2"
           onChange={(e) => setType(e.target.value)}
+          required
         >
-          <option value="0" selected>
+          <option value="" selected>
             เลือกประเภทสัตว์เลี้ยง
           </option>
           <option value="สุนัข">สุนัข</option>
@@ -105,11 +106,23 @@ function AddPet({ onClose, isOpen }: AddPetProps) {
           <option value="อื่นๆ">อื่นๆ</option>
         </select>
         <select
-          value={owner}
-          className="form-select"
-          onChange={(e) => setOwner(e.target.value)}
+          value={gender}
+          className="form-select my-2"
+          onChange={(e) => setGender(e.target.value)}
+          required
         >
-          <option value="0" selected>
+          <option value="">เลือกเพศ</option>
+          <option value="ชาย">ชาย</option>
+          <option value="หญิง">หญิง</option>
+          <option value="อื่นๆ">อื่นๆ</option>
+        </select>
+        <select
+          value={owner}
+          className="form-select my-2"
+          onChange={(e) => setOwner(e.target.value)}
+          required
+        >
+          <option value="" selected>
             เลือกเจ้าของ
           </option>
           {owners?.map((own, i) => (
@@ -119,7 +132,7 @@ function AddPet({ onClose, isOpen }: AddPetProps) {
           ))}
         </select>
         <input
-          className="form-control file"
+          className="form-control file my-2"
           type="file"
           accept="image/*"
           onChange={(e) => {
@@ -127,15 +140,33 @@ function AddPet({ onClose, isOpen }: AddPetProps) {
               setPicture(e.target.files[0]);
             }
           }}
+          required
         />
         <textarea
+          className="form-control my-2"
+          style={{ height: "70px" }}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="รายละเอียด"
           value={description}
+          required
         ></textarea>
-        <button className="btn btn-success" type="submit">
-          บันทึก
-        </button>
+        <div className="text-end">
+          <button
+            disabled={isLoading}
+            className="btn btn-primary"
+            type="submit"
+          >
+            {isLoading ? (
+              <div
+                className="spinner-border"
+                style={{ width: "20px", height: "20px", display: "flex" }}
+                role="status"
+              ></div>
+            ) : (
+              "บันทึก"
+            )}
+          </button>
+        </div>
       </form>
     </Modal>
   );

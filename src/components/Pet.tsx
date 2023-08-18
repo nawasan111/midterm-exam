@@ -41,6 +41,7 @@ const Pet = () => {
         id: petSnapshot.id,
         name: petSnapshot.data().name,
         description: petSnapshot.data().description,
+        gender: petSnapshot.data().gender,
         owner: petData.owner,
         picture: petData.picture,
         type: petData.type,
@@ -154,6 +155,7 @@ const Pet = () => {
         <h3>
           {renderPetTypeIcon(pet ? pet.type : "")}
           <b>{pet ? pet.name : "none"}</b>
+          <span className="text-sm"> ({`${pet?.gender}`})</span>
         </h3>
         <p className="lead">
           <b>เจ้าของ: </b>
@@ -215,6 +217,7 @@ const Pet = () => {
           id={petId ?? ""}
           petName={pet.name ?? ""}
           petType={pet.type ?? ""}
+          gender_c={pet.gender ?? ""}
           petOwner={pet.owner ?? ""}
           petPicture={pet.picture ?? ""}
           petDescription={pet.description ?? ""}

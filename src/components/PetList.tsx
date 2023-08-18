@@ -27,8 +27,8 @@ const PetList = () => {
   const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
-    document.title = "รายชื่อสัตว์"
-  }, [])
+    document.title = "รายชื่อสัตว์";
+  }, []);
   useEffect(() => {
     const q = query(collection(db, "pets"), orderBy("name", "asc"));
     onSnapshot(q, (querySnapshot) => {
@@ -37,6 +37,7 @@ const PetList = () => {
           id: doc.id,
           description: doc.data().description,
           name: doc.data().name,
+          gender: doc.data().gender,
           owner: doc.data().owner,
           picture: doc.data().picture,
           type: doc.data().type,
@@ -56,6 +57,7 @@ const PetList = () => {
           id: doc.id,
           description: doc.data().description,
           name: doc.data().name,
+          gender: doc.data().gender,
           owner: doc.data().owner,
           picture: doc.data().picture,
           type: doc.data().type,
@@ -77,6 +79,7 @@ const PetList = () => {
             id: doc.id,
             description: doc.data().description,
             name: doc.data().name,
+            gender: doc.data().gender,
             owner: doc.data().owner,
             picture: doc.data().picture,
             type: doc.data().type,
@@ -91,6 +94,7 @@ const PetList = () => {
             id: doc.id,
             description: doc.data().description,
             name: doc.data().name,
+            gender: doc.data().gender,
             owner: doc.data().owner,
             picture: doc.data().picture,
             type: doc.data().type,
@@ -172,7 +176,7 @@ const PetList = () => {
         >
           <a
             href="#"
-            className="btn btn-success"
+            className="btn btn-primary"
             style={{}}
             onClick={() => setOpenAddModal(true)}
           >

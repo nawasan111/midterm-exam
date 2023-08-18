@@ -20,6 +20,7 @@ export interface EditPetProps {
   id: string;
   petName: string;
   petType: string;
+  gender_c: string;
   petOwner: string;
   petPicture: string;
   petDescription: string;
@@ -30,6 +31,7 @@ const EditPet: FC<EditPetProps> = ({
   id,
   petName,
   petType,
+  gender_c,
   petOwner,
   petPicture,
   petDescription,
@@ -37,13 +39,16 @@ const EditPet: FC<EditPetProps> = ({
   const [name, setName] = useState(petName);
   const [type, setType] = useState(petType);
   const [owner, setOwner] = useState(petOwner);
+  const [gender, setGender] = useState(gender_c);
   const [picture, setPicture] = useState<File>();
   const [description, setDescription] = useState(petDescription);
   const [owners, setOwners] = useState<OwnerInterface[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   /* function to edit pet to firestore */
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       if (picture) {
         const storageRef = ref(storage, `/files/${picture.name}`);
@@ -58,11 +63,13 @@ const EditPet: FC<EditPetProps> = ({
               updateDoc(doc(db, "pets", id), {
                 name: name,
                 type: type,
+                gender: gender,
                 owner: owner,
                 picture: url,
                 description: description,
               });
               onClose();
+              setIsLoading(false);
             });
           }
         );
@@ -70,10 +77,12 @@ const EditPet: FC<EditPetProps> = ({
         updateDoc(doc(db, "pets", id), {
           name: name,
           type: type,
+          gender: gender,
           owner: owner,
           description: description,
         });
         onClose();
+        setIsLoading(false);
       }
     } catch (err) {
       alert(err);
@@ -103,29 +112,43 @@ const EditPet: FC<EditPetProps> = ({
         <input
           type="text"
           name="name"
+          className="form-control my-2"
           onChange={(e) => setName(e.target.value)}
           value={name}
           placeholder="กรอกชื่อ"
+          required
         />
         <select
           value={type}
           className="form-select"
           onChange={(e) => setType(e.target.value)}
+          required
         >
-          <option value="0" selected>
-            เลือกประเภทสัตว์เลี้ยง
-          </option>
+          <option value="">เลือกประเภทสัตว์เลี้ยง</option>
           <option value="สุนัข">สุนัข</option>
           <option value="แมว">แมว</option>
           <option value="กระต่าย">กระต่าย</option>
           <option value="อื่นๆ">อื่นๆ</option>
         </select>
         <select
+          value={gender}
+          className="form-select my-2"
+          onChange={(e) => setGender(e.target.value)}
+          required
+        >
+          <option value="">เลือกเพศ</option>
+          <option value="ชาย">ชาย</option>
+          <option value="หญิง">หญิง</option>
+          <option value="อื่นๆ">อื่นๆ</option>
+        </select>
+
+        <select
           value={owner}
           className="form-select"
           onChange={(e) => setOwner(e.target.value)}
+          required
         >
-          <option value="0" selected>
+          <option value="" selected>
             เลือกเจ้าของ
           </option>
           {owners?.map((own, i) => (
@@ -135,7 +158,7 @@ const EditPet: FC<EditPetProps> = ({
           ))}
         </select>
         <input
-          className="form-control file"
+          className="form-control file my-2"
           type="file"
           accept="image/*"
           onChange={(e) => {
@@ -145,13 +168,30 @@ const EditPet: FC<EditPetProps> = ({
           }}
         />
         <textarea
+          className="form-control my-2"
           onChange={(e) => setDescription(e.target.value)}
           placeholder="รายละเอียด"
           value={description}
+          required
         ></textarea>
-        <button className="btn btn-success" type="submit">
-          บันทึก
-        </button>
+
+        <div className="text-end">
+          <button
+            disabled={isLoading}
+            className="btn btn-primary"
+            type="submit"
+          >
+            {isLoading ? (
+              <div
+                className="spinner-border"
+                style={{ width: "20px", height: "20px", display: "flex" }}
+                role="status"
+              ></div>
+            ) : (
+              "บันทึก"
+            )}
+          </button>
+        </div>
       </form>
     </Modal>
   );
