@@ -1,8 +1,13 @@
 import { TbDogBowl } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import StorageLocal from "../../assets/js/localStorage";
 export default function Navbar() {
+  const prefs = new StorageLocal();
   return (
-    <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <nav
+      style={{ backgroundColor: prefs.prefs.color.theme }}
+      className="navbar navbar-expand-md navbar-dark fixed-top"
+    >
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
           <TbDogBowl

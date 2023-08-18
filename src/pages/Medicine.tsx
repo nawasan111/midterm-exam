@@ -16,6 +16,8 @@ import { db } from "../assets/js/firebase";
 import EditMedicine from "../components/EditMedicine";
 import MedicineInterface from "../interface/medicine";
 import { useSearchParams } from "react-router-dom";
+import StorageLocal from "../assets/js/localStorage";
+const prefs = new StorageLocal();
 
 export default function Medicine() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -126,6 +128,7 @@ export default function Medicine() {
                 </td>
                 <td>
                   <button
+                    style={{ backgroundColor: prefs.getAll().color.danger }}
                     className="btn btn-danger"
                     onClick={() => deleteMedicine(medicine)}
                   >

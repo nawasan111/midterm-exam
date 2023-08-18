@@ -3,6 +3,7 @@ import Modal from "./Modal";
 import MedicineInterface from "../interface/medicine";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../assets/js/firebase";
+import StorageLocal from "../assets/js/localStorage";
 
 export interface AddMedicineProps {
   isOpen: boolean;
@@ -15,6 +16,7 @@ export default function AddMedicine({ isOpen, onClose }: AddMedicineProps) {
     detail: "",
     name: "",
   });
+  const prefs = new StorageLocal();
   const onSumitForm = async (e: FormEvent) => {
     e.preventDefault();
     if (medicine.detail && medicine.name) {
@@ -44,7 +46,15 @@ export default function AddMedicine({ isOpen, onClose }: AddMedicineProps) {
           required
         ></textarea>
         <div className="text-end">
-          <button className="btn btn-primary">บันทึก</button>
+          <button
+            style={{
+              backgroundColor: prefs.prefs.color.primary,
+              borderColor: prefs.prefs.color.primary,
+            }}
+            className="btn btn-primary"
+          >
+            บันทึก
+          </button>
         </div>
       </form>
     </Modal>

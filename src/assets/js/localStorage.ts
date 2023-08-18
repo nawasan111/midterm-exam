@@ -8,7 +8,7 @@ type prefsType = {
     theme: string;
   };
 };
-type prefsTypeSome = {
+export type prefsTypeSome = {
   fontFamily?: string;
   color?: {
     primary?: string;
@@ -20,10 +20,10 @@ type prefsTypeSome = {
 };
 
 class StorageLocal {
-  prefs: prefsType = {
+  public prefs: prefsType = {
     color: {
-      primary: "#212529",
-      second: "#fff",
+      primary: "#0d6efd",
+      second: "#6c757d",
       warning: "#b5babe",
       danger: "#dc3545",
       theme: "#212529",

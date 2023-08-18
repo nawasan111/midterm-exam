@@ -3,6 +3,7 @@ import { useState, useEffect, FormEvent } from "react";
 import { db } from "../assets/js/firebase";
 import { collection, addDoc } from "firebase/firestore";
 import "../assets/css/addForm.css";
+import StorageLocal from "../assets/js/localStorage";
 
 export interface AddOwnerProps {
   onClose: Function;
@@ -12,6 +13,7 @@ export interface AddOwnerProps {
 function AddOwner({ onClose, isOpen }: AddOwnerProps) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const prefs = new StorageLocal();
 
   /* function to add new Owner to firestore */
   const handleSubmit = async (e: FormEvent) => {
@@ -49,7 +51,10 @@ function AddOwner({ onClose, isOpen }: AddOwnerProps) {
           required
         ></textarea>
         <div className="text-end">
-          <button className="btn btn-success" type="submit">
+          <button style={{
+            backgroundColor: prefs.prefs.color.primary,
+            borderColor: prefs.prefs.color.primary
+          }} className="btn btn-success" type="submit">
             บันทึก
           </button>
         </div>

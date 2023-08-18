@@ -11,12 +11,14 @@ import PetInterface from "../interface/pet";
 import SearchBox from "../components/SearchBox";
 import SortBox from "../components/SortBox";
 import PopupEvent from "../components/PopupEvent";
+import StorageLocal from "../assets/js/localStorage";
 
 const PetList = () => {
   const [openAddModal, setOpenAddModal] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [pets, setPets] = useState<PetInterface[]>([]);
   const [keyword, setKeyword] = useState(searchParams.get("q") ?? "");
+  const prefs = new StorageLocal();
 
   const petsFilter = pets.filter(
     (pet) =>
@@ -132,21 +134,18 @@ const PetList = () => {
                   <b>{pet.name}</b>
                 </h3>
                 <p className="card-text">{pet.description}</p>
-                <div className="text-center">
-                  <div className="btn-group">
+                <div className="text-end">
+                  <div>
                     <Link
                       to={`/pet/view/${pet.id}`}
-                      className="btn btn-sm btn-outline-secondary"
+                      style={{
+                        backgroundColor: prefs.prefs.color.second,
+                      }}
+                      className="btn btn-sm btn-secondary"
                     >
                       ดูรายละเอียด
                     </Link>
-                    <button
-                      type="button"
-                      className="btn btn-sm btn-outline-secondary"
-                    >
-                      แก้ไขข้อมูล
-                    </button>
-                  </div>
+                 </div>
                 </div>
               </div>
             </div>

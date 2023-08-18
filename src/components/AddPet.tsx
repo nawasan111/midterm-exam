@@ -11,6 +11,7 @@ import {
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import "../assets/css/addForm.css";
 import OwnerInterface from "../interface/owner";
+import StorageLocal from "../assets/js/localStorage";
 
 export interface AddPetProps {
   onClose: Function;
@@ -25,6 +26,7 @@ function AddPet({ onClose, isOpen }: AddPetProps) {
   const [description, setDescription] = useState("");
   const [owners, setOwners] = useState<OwnerInterface[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const prefs = new StorageLocal();
 
   /* function to add new pet to firestore */
   const handleSubmit = async (e: FormEvent) => {
@@ -153,6 +155,10 @@ function AddPet({ onClose, isOpen }: AddPetProps) {
         <div className="text-end">
           <button
             disabled={isLoading}
+            style={{
+              backgroundColor: prefs.getAll().color.primary,
+              borderColor: prefs.getAll().color.primary,
+            }}
             className="btn btn-primary"
             type="submit"
           >
