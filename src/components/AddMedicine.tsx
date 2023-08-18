@@ -18,7 +18,7 @@ export default function AddMedicine({ isOpen, onClose }: AddMedicineProps) {
   const onSumitForm = async (e: FormEvent) => {
     e.preventDefault();
     if (medicine.detail && medicine.name) {
-      await addDoc(collection(db, "medicine"), {
+      addDoc(collection(db, "medicine"), {
         name: medicine.name,
         detail: medicine.detail,
       });

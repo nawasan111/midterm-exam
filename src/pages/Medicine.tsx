@@ -3,7 +3,15 @@ import SearchBox from "../components/SearchBox";
 import SortBox from "../components/SortBox";
 import PopupEvent from "../components/PopupEvent";
 import AddMedicine from "../components/AddMedicine";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { confirmAlert } from "react-confirm-alert";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import { db } from "../assets/js/firebase";
 import EditMedicine from "../components/EditMedicine";
 import MedicineInterface from "../interface/medicine";
@@ -37,6 +45,25 @@ export default function Medicine() {
           detail: medic.data().detail,
         }))
       );
+    });
+  };
+
+  const deleteMedicine = (medicine: MedicineInterface) => {
+    confirmAlert({
+      title: `ต้องการลบ${medicine.name}หรือไม่?`,
+      message: `Are you sure delete this ${medicine.name}?`,
+      buttons: [
+        {
+          label: "ตกลง",
+          onClick: async () => {
+            await deleteDoc(doc(db, "medicine", medicine.id));
+          },
+        },
+        {
+          label: "ยกเลิก",
+          onClick: () => {},
+        },
+      ],
     });
   };
 
@@ -96,7 +123,12 @@ export default function Medicine() {
                   </button>
                 </td>
                 <td>
-                  <button className="btn btn-danger">ลบ</button>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => deleteMedicine(medicine)}
+                  >
+                    ลบ
+                  </button>
                 </td>
               </tr>
             ))}
