@@ -8,7 +8,6 @@ import {
   where,
   deleteDoc,
   doc,
-  getDocs,
 } from "firebase/firestore";
 import { useSearchParams } from "react-router-dom";
 import { db } from "../assets/js/firebase";
@@ -61,7 +60,6 @@ function OwnerList() {
         );
         onSnapshot(queryPetCount, (snapshot) => {
           owners[idx].pet_count = snapshot.docs.length;
-          console.log(owners);
           setOwners([...owners]);
         });
       });

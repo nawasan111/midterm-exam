@@ -97,11 +97,13 @@ export default function Medicine() {
       <div style={{ overflowX: "scroll" }}>
         <table className="table table-hover">
           <thead>
-            <th>ลำดับ</th>
-            <th>ชื่อ</th>
-            <th>รายละเอียด</th>
-            <th>แก้ไข</th>
-            <th>ลบ</th>
+            <tr>
+              <th>ลำดับ</th>
+              <th>ชื่อ</th>
+              <th>รายละเอียด</th>
+              <th>แก้ไข</th>
+              <th>ลบ</th>
+            </tr>
           </thead>
           <tbody>
             {medicineFilter.map((medicine, idx) => (

@@ -1,5 +1,7 @@
 import { TbDogBowl, TbHome, TbIdBadge2, TbUser } from "react-icons/tb";
+import { GiMedicines } from "react-icons/gi";
 import { Link, NavLink } from "react-router-dom";
+import { TbFileSettings } from "react-icons/tb";
 
 export default function Sidebar() {
   const active = "shadow-sm bg-white";
@@ -74,10 +76,24 @@ export default function Sidebar() {
             }
             aria-current="page"
           >
-            <TbUser
+            <GiMedicines
               style={{ fontSize: 30, marginRight: 5, paddingBottom: 5 }}
             />
             <b>รายชื่อยารักษา</b>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/prefs"
+            className={({ isActive }) =>
+              `nav-link link-dark ${isActive ? active : ""}`
+            }
+            aria-current="page"
+          >
+            <TbFileSettings
+              style={{ fontSize: 30, marginRight: 5, paddingBottom: 5 }}
+            />
+            <b>settings</b>
           </NavLink>
         </li>
       </ul>

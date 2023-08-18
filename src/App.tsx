@@ -13,13 +13,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // Bootstrap Bundle JS
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import Medicine from "./pages/Medicine";
+import StorageLocal from "./assets/js/localStorage";
+import Prefs from "./pages/Prefs";
 
 function App() {
+  const prefs = new StorageLocal();
   return (
     <Router>
       <Navbar />
       <div
         style={{
+          fontFamily: prefs.getAll().fontFamily,
           display: "flex",
           flexDirection: "row",
           minHeight: "75rem",
@@ -34,6 +38,7 @@ function App() {
             <Route path="/pet/view/:id" element={<Pet />} />
             <Route path="/owners" element={<OwnerList />} />
             <Route path="/medicine" element={<Medicine />} />
+            <Route path="/prefs" element={<Prefs />} />
           </Routes>
         </main>
       </div>
