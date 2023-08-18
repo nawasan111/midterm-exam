@@ -98,7 +98,7 @@ const PetList = () => {
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
-      <div style={{ display: "flex", flexDirection: "row" }}>
+      <div className="menu-top">
         <SearchBox
           label="ค้นหาสัตว์เลี้ยง"
           keyword={keyword}

@@ -9,6 +9,16 @@ export default function Navbar() {
       className="navbar navbar-expand-md navbar-dark fixed-top"
     >
       <div className="container-fluid">
+        <button
+          style={{ backgroundColor: prefs.prefs.color.second }}
+          className="btn btn-second btn-menu"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasWithBothOptions"
+          aria-controls="offcanvasWithBothOptions"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
         <Link className="navbar-brand" to="/">
           <TbDogBowl
             style={{

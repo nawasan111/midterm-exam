@@ -52,3 +52,19 @@ html,
 body {
   scroll-behavior: smooth;
 }
+
+.btn-menu {
+  display: none;
+}
+.menu-top {
+  display: flex;
+}
+@media only screen and (max-width: 767px) {
+  .btn-menu {
+    display: inline-block;
+  }
+  .menu-top {
+    display: block;
+    text-align: center;
+  }
+}

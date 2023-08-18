@@ -102,7 +102,7 @@ function OwnerList() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
-      <div style={{ display: "flex", flexDirection: "row" }}>
+      <div className="menu-top">
         <SearchBox
           label="ค้นหาเจ้าของ"
           keyword={keyword}

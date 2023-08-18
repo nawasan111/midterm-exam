@@ -7,7 +7,11 @@ export default function Sidebar() {
   const active = "shadow-sm bg-white";
   return (
     <div
-      className="d-flex flex-column flex-shrink-0 p-3 bg-light"
+      className="offcanvas-md offcanvas-start d-flex flex-column flex-shrink-0 p-3 bg-light"
+      data-bs-scroll="true"
+      tabIndex={-1}
+      id="offcanvasWithBothOptions"
+      aria-labelledby="offcanvasWithBothOptionsLabel"
       style={{ width: 230 }}
     >
       <Link

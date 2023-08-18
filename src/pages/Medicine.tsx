@@ -75,7 +75,7 @@ export default function Medicine() {
   }, [searchParams]);
   return (
     <main>
-      <div style={{ display: "flex", flexDirection: "row" }}>
+      <div className="menu-top">
         <SearchBox
           label="ค้นหายารักษา"
           keyword={keyword}

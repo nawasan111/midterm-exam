@@ -168,8 +168,8 @@ const Pet = () => {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "row" }}>
-      <div style={{ display: "flex", flexDirection: "column", padding: 10 }}>
+    <div className="menu-top">
+      <div style={{ display: "flex", flexDirection: "column",alignItems: "center", padding: 10 }}>
         <img
           src={pet && pet.picture ? pet.picture : imagePaw}
           onError={(e) => {
