@@ -18,7 +18,7 @@ import {
 } from "react-icons/tb";
 import { FaDog, FaCat } from "react-icons/fa";
 import { GiRabbitHead } from "react-icons/gi";
-import AddPet from "./AddPet";
+import AddPet from "../components/AddPet";
 import PetInterface from "../interface/pet";
 
 const PetList = () => {

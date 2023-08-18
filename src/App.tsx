@@ -1,8 +1,8 @@
 import "./App.css";
-import Home from "./components/Home";
-import PetList from "./components/PetList";
-import Pet from "./components/Pet";
-import OwnerList from "./components/OwnerList";
+import Home from "./pages/Home";
+import PetList from "./pages/PetList";
+import Pet from "./pages/Pet";
+import OwnerList from "./pages/OwnerList";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Footer from "./components/base/Footer";
 import Navbar from "./components/base/Navbar";

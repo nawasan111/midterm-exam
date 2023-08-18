@@ -14,10 +14,10 @@ import { TbCirclePlus, TbDogBowl, TbEdit, TbCircleX } from "react-icons/tb";
 import { FaDog, FaCat } from "react-icons/fa";
 import { GiRabbitHead } from "react-icons/gi";
 import { useParams, useNavigate } from "react-router-dom";
-import AddTreatment from "./AddTreatment";
+import AddTreatment from "../components/AddTreatment";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import EditPet from "./EditPet";
+import EditPet from "../components/EditPet";
 import PetInterface from "../interface/pet";
 import TreatmentInterface from "../interface/treatment";
 

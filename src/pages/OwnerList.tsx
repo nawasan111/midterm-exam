@@ -9,7 +9,7 @@ import {
 import { db } from "../assets/js/firebase";
 import { TbCirclePlus } from "react-icons/tb";
 
-import AddOwner from "./AddOwner";
+import AddOwner from "../components/AddOwner";
 import OwnerInterface from "../interface/owner";
 
 function OwnerList() {
