@@ -20,6 +20,9 @@ import { FaDog, FaCat } from "react-icons/fa";
 import { GiRabbitHead } from "react-icons/gi";
 import AddPet from "../components/AddPet";
 import PetInterface from "../interface/pet";
+import SearchBox from "../components/SearchBox";
+import SortBox from "../components/SortBox";
+import PopupEvent from "../components/PopupEvent";
 
 const PetList = () => {
   const [openAddModal, setOpenAddModal] = useState(false);
@@ -132,65 +135,25 @@ const PetList = () => {
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <div className="row" style={{ marginRight: 5 }}>
-          <div className="btn-group mb-3">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Pet's name"
-              aria-describedby="button-addon2"
-              onChange={(e) => setKeyword(e.target.value)}
-              value={keyword}
-            />
-            <button
-              className="btn btn-outline-secondary"
-              type="button"
-              id="button-addon2"
-              onClick={() => handleSearch(keyword)}
-            >
-              <TbSearch style={{ fontSize: 20 }} />
-            </button>
-          </div>
-        </div>
-        <div className="row" style={{ marginBottom: 15, marginRight: 5 }}>
-          <div className="btn-group">
-            <button
-              type="button"
-              className="btn btn-outline-secondary"
-              onClick={() => handleOrderBy("desc")}
-            >
-              <TbSortAscendingLetters style={{ fontSize: 20 }} />
-            </button>
-            <button
-              type="button"
-              className="btn btn-outline-secondary"
-              onClick={() => handleOrderBy("asc")}
-            >
-              <TbSortDescendingLetters style={{ fontSize: 20 }} />
-            </button>
-          </div>
-        </div>
-        <div
-          className="row"
-          style={{ paddingLeft: 10, paddingRight: 10, marginBottom: 15 }}
-        >
-          <a
-            href="#"
-            className="btn btn-primary"
-            style={{}}
-            onClick={() => setOpenAddModal(true)}
-          >
-            <TbCirclePlus style={{ fontSize: 20 }} />{" "}
-            <b>เพิ่มข้อมูลสัตว์เลี้ยง</b>
-          </a>
-        </div>
+        <SearchBox label="ค้นหาสัตว์เลี้ยง" keyword={keyword} setKeyword={setKeyword} />
+        <SortBox
+          onAsc={() => handleOrderBy("asc")}
+          onDesc={() => handleOrderBy("desc")}
+        />
+        <PopupEvent
+          label="เพิ่มข้อมูลสัตว์เลี้ยง"
+          onClick={() => setOpenAddModal(true)}
+        />
       </div>
-      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
+      <div className="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-3">
         {pets?.map((pet, i) => (
           <div className="col" key={i}>
-            <div className="card shadow-sm">
+            <div style={{ width: "300px" }} className="card shadow-sm">
               <img
                 src={pet.picture ? pet.picture : imagePaw}
+                style={{ objectFit: "cover" }}
+                width={300}
+                height={170}
                 className="card-img-top"
                 alt={pet.name}
               />

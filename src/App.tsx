@@ -12,6 +12,7 @@ import Sidebar from "./components/base/Sidebar";
 import "bootstrap/dist/css/bootstrap.min.css";
 // Bootstrap Bundle JS
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import Medicine from "./pages/Medicine";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="/pets" element={<PetList />} />
             <Route path="/pet/view/:id" element={<Pet />} />
             <Route path="/owners" element={<OwnerList />} />
+            <Route path="/medicine" element={<Medicine />} />
           </Routes>
         </main>
       </div>

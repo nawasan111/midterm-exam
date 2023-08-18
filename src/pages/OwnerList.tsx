@@ -11,12 +11,17 @@ import { TbCirclePlus } from "react-icons/tb";
 
 import AddOwner from "../components/AddOwner";
 import OwnerInterface from "../interface/owner";
+import PopupEvent from "../components/PopupEvent";
+import SearchBox from "../components/SearchBox";
+import SortBox from "../components/SortBox";
 
 function OwnerList() {
   const [openAddModal, setOpenAddModal] = useState(false);
   const [owners, setOwners] = useState<OwnerInterface[]>([]);
+  const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
+    document.title = "รายชื่อเจ้าของ";
     const q = query(collection(db, "owners"), orderBy("name", "asc"));
     onSnapshot(q, (querySnapshot) => {
       setOwners(
@@ -29,6 +34,8 @@ function OwnerList() {
       );
     });
   }, []);
+
+  const handleOrderBy = (order: string) => {};
 
   useEffect(() => {
     if (owners.length && owners[0].pet_count === -1) {
@@ -49,19 +56,19 @@ function OwnerList() {
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <div
-          className="row"
-          style={{ paddingLeft: 10, paddingRight: 10, marginBottom: 10 }}
-        >
-          <a
-            href="#"
-            className="btn btn-success"
-            style={{}}
-            onClick={() => setOpenAddModal(true)}
-          >
-            <TbCirclePlus style={{ fontSize: 20 }} /> <b>เพิ่มข้อมูลเจ้าของ</b>
-          </a>
-        </div>
+        <SearchBox
+          label="ค้นหาเจ้าของ"
+          keyword={keyword}
+          setKeyword={setKeyword}
+        />
+        <SortBox
+          onAsc={() => handleOrderBy("asc")}
+          onDesc={() => handleOrderBy("desc")}
+        />
+        <PopupEvent
+          label="เพิ่มข้อมูลเจ้าของ"
+          onClick={() => setOpenAddModal(true)}
+        />
       </div>
       <div style={{ display: "flex", flexDirection: "row" }}>
         <ul className="list-group" style={{ width: 200 }}>

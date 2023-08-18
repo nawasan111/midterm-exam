@@ -35,18 +35,24 @@ function AddOwner({ onClose, isOpen }: AddOwnerProps) {
         <input
           type="text"
           name="name"
+          className="form-control my-2"
           onChange={(e) => setName(e.target.value)}
           value={name}
           placeholder="กรอกชื่อเจ้าของ"
+          required
         />
         <textarea
           onChange={(e) => setDescription(e.target.value)}
+          className="form-control my-2"
           placeholder="รายละเอียด"
           value={description}
+          required
         ></textarea>
-        <button className="btn btn-success" type="submit">
-          บันทึก
-        </button>
+        <div className="text-end">
+          <button className="btn btn-success" type="submit">
+            บันทึก
+          </button>
+        </div>
       </form>
     </Modal>
   );

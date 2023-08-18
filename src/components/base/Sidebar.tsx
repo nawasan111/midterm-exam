@@ -66,6 +66,20 @@ export default function Sidebar() {
             <b>รายชื่อเจ้าของ</b>
           </NavLink>
         </li>
+        <li>
+          <NavLink
+            to="/medicine"
+            className={({ isActive }) =>
+              `nav-link link-dark ${isActive ? active : ""}`
+            }
+            aria-current="page"
+          >
+            <TbUser
+              style={{ fontSize: 30, marginRight: 5, paddingBottom: 5 }}
+            />
+            <b>รายชื่อยารักษา</b>
+          </NavLink>
+        </li>
       </ul>
     </div>
   );
