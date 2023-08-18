@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { db } from "../assets/js/firebase";
+import { db, storage } from "../assets/js/firebase";
 import {
   doc,
   getDoc,
@@ -22,6 +22,7 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import EditPet from "../components/EditPet";
 import PetInterface from "../interface/pet";
 import TreatmentInterface from "../interface/treatment";
+import { deleteObject, ref } from "firebase/storage";
 
 const Pet = () => {
   const [pet, setPet] = useState<PetInterface>();
@@ -93,6 +94,17 @@ const Pet = () => {
         {
           label: "ตกลง",
           onClick: async () => {
+            console.log(pet?.picture);
+            let url = new URL(pet?.picture ?? "").pathname.toString();
+            let pathname = url.split("/");
+            let pathnameLast = pathname[pathname.length - 1];
+            pathnameLast = decodeURIComponent(pathnameLast);
+            const desertRef = ref(storage, pathnameLast);
+            try {
+              deleteObject(desertRef);
+            } catch (err) {
+              console.log(err);
+            }
             await deleteDoc(doc(db, "pets", petId));
             navigate("/pets");
           },
