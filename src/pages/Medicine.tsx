@@ -7,8 +7,10 @@ import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db } from "../assets/js/firebase";
 import EditMedicine from "../components/EditMedicine";
 import MedicineInterface from "../interface/medicine";
+import { useSearchParams } from "react-router-dom";
 
 export default function Medicine() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [keyword, setKeyword] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [medicineList, setMedicineList] = useState<MedicineInterface[]>([]);
@@ -20,13 +22,12 @@ export default function Medicine() {
   const medicineFilter = medicineList.filter(
     (med) => med.name.includes(keyword) || med.detail.includes(keyword)
   );
-  const handleOrderBy = (mode: string) => {};
 
-  useEffect(() => {
-    document.title = "รายชื่อยารักษา";
+  const fetchMedicine = () => {
+    let sort = searchParams.get("sort") ?? "asc";
     const queryMedicine = query(
       collection(db, "medicine"),
-      orderBy("name", "asc")
+      orderBy("name", sort === "asc" ? "asc" : "desc")
     );
     onSnapshot(queryMedicine, (snapshot) => {
       setMedicineList(
@@ -37,7 +38,12 @@ export default function Medicine() {
         }))
       );
     });
-  }, []);
+  };
+
+  useEffect(() => {
+    document.title = "รายชื่อยารักษา";
+    fetchMedicine();
+  }, [searchParams]);
   return (
     <main>
       <div style={{ display: "flex", flexDirection: "row" }}>
@@ -47,8 +53,8 @@ export default function Medicine() {
           setKeyword={setKeyword}
         />
         <SortBox
-          onAsc={() => handleOrderBy("asc")}
-          onDesc={() => handleOrderBy("desc")}
+          onAsc={() => setSearchParams({ sort: "asc" })}
+          onDesc={() => setSearchParams({ sort: "desc" })}
         />
         <PopupEvent
           label="เพิ่มข้อมูลยารักษา"

@@ -13,14 +13,14 @@ export default function SortBox({ onAsc, onDesc }: SortBoxProps) {
         <button
           type="button"
           className="btn btn-outline-secondary"
-          onClick={() => onDesc()}
+          onClick={() => onAsc()}
         >
           <TbSortAscendingLetters style={{ fontSize: 20 }} />
         </button>
         <button
           type="button"
           className="btn btn-outline-secondary"
-          onClick={() => onAsc()}
+          onClick={() => onDesc()}
         >
           <TbSortDescendingLetters style={{ fontSize: 20 }} />
         </button>
