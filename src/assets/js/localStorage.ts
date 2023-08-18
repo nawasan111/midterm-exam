@@ -26,9 +26,9 @@ class StorageLocal {
       second: "#6c757d",
       warning: "#b5babe",
       danger: "#dc3545",
-      theme: "##3d3846",
+      theme: "#3d3846",
     },
-    fontFamily: "Prompt",
+    fontFamily: "Chakra Petch",
   };
   constructor() {
     try {
