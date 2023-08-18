@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
-import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  query,
+  orderBy,
+  onSnapshot,
+  where,
+} from "firebase/firestore";
 import { db } from "../assets/js/firebase";
 import { TbCirclePlus } from "react-icons/tb";
 
@@ -18,10 +24,27 @@ function OwnerList() {
           id: doc.id,
           name: doc.data().name,
           description: doc.data().description,
+          pet_count: -1,
         }))
       );
     });
   }, []);
+
+  useEffect(() => {
+    if (owners.length && owners[0].pet_count === -1) {
+      owners.map((own, idx) => {
+        const queryPetCount = query(
+          collection(db, "pets"),
+          where("owner", "==", own.id)
+        );
+        onSnapshot(queryPetCount, (snapshot) => {
+          owners[idx].pet_count = snapshot.docs.length;
+          console.log(owners);
+          setOwners([...owners]);
+        });
+      });
+    }
+  }, [owners]);
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
@@ -48,7 +71,9 @@ function OwnerList() {
               className="list-group-item d-flex justify-content-between align-items-center"
             >
               {own.name}
-              <span className="badge bg-primary rounded-pill">1</span>
+              <span className="badge bg-primary rounded-pill">
+                {own.pet_count === -1 ? 0 : own.pet_count}
+              </span>
             </li>
           ))}
         </ul>

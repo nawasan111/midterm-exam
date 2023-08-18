@@ -29,6 +29,9 @@ dependencies:
   react-router-dom:
     specifier: ^6.15.0
     version: 6.15.0(react-dom@18.2.0)(react@18.2.0)
+  stdio.h:
+    specifier: ^0.1.1
+    version: 0.1.1
 
 devDependencies:
   '@types/react':
@@ -5816,6 +5819,10 @@ packages:
   /statuses@2.0.1:
     resolution: {integrity: sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ==}
     engines: {node: '>= 0.8'}
+    dev: false
+
+  /stdio.h@0.1.1:
+    resolution: {integrity: sha512-YVRVfs3lTDFXe5w+neB+bVGqYLC1VzCuwekCA/bFQPlbV5Yv0s9MEndFk3OrpGCCebP8qbHVmk4xtQGf6gVfSw==}
     dev: false
 
   /string-width@4.2.3:

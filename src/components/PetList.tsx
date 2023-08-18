@@ -27,6 +27,9 @@ const PetList = () => {
   const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
+    document.title = "รายชื่อสัตว์"
+  }, [])
+  useEffect(() => {
     const q = query(collection(db, "pets"), orderBy("name", "asc"));
     onSnapshot(q, (querySnapshot) => {
       setPets(
