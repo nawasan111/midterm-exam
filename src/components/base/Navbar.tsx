@@ -1,9 +1,10 @@
 import { TbDogBowl } from "react-icons/tb";
+import { Link } from "react-router-dom";
 export default function Navbar() {
   return (
     <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
+        <Link className="navbar-brand" to="/">
           <TbDogBowl
             style={{
               color: "#FFFFFF",
@@ -13,7 +14,7 @@ export default function Navbar() {
             }}
           />
           <b>Pet Clinic</b>
-        </a>
+        </Link>
       </div>
     </nav>
   );
