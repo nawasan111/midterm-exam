@@ -3,4 +3,5 @@ export default interface TreatmentInterface {
   id: string;
   treatment: string;
   created: Timestamp;
+  medicine: string;
 }

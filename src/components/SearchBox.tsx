@@ -5,7 +5,11 @@ export interface SearchBoxProps {
   keyword: string;
   setKeyword: Function;
 }
-export default function SearchBox({ keyword, label, setKeyword }: SearchBoxProps) {
+export default function SearchBox({
+  keyword,
+  label,
+  setKeyword,
+}: SearchBoxProps) {
   return (
     <div className="row" style={{ marginRight: 5 }}>
       <div className="btn-group mb-3">

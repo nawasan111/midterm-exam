@@ -10,6 +10,7 @@ import {
   deleteDoc,
   where,
   documentId,
+  getDocs,
 } from "firebase/firestore";
 import imagePaw from "../assets/images/animal_paw.png";
 import { TbCirclePlus, TbDogBowl, TbEdit, TbCircleX } from "react-icons/tb";
@@ -23,6 +24,7 @@ import EditPet from "../components/EditPet";
 import PetInterface from "../interface/pet";
 import TreatmentInterface from "../interface/treatment";
 import { deleteObject, ref } from "firebase/storage";
+import MedicineInterface from "../interface/medicine";
 
 const Pet = () => {
   const [pet, setPet] = useState<PetInterface>();
@@ -32,7 +34,7 @@ const Pet = () => {
   const petId: string = params.id ?? "";
   const [openAddModal, setOpenAddModal] = useState(false);
   const navigate = useNavigate();
-
+  const [medicinesList, setMedicineList] = useState<MedicineInterface[]>([]);
   const [openEditModal, setOpenEditModal] = useState(false);
 
   const getPetDoc = async (id: string) => {
@@ -79,11 +81,23 @@ const Pet = () => {
         querySnapshot.docs.map((doc) => ({
           id: doc.id,
           created: doc.data().created,
+          medicine: doc.data().medicine,
           treatment: doc.data().treatment,
         }))
       );
       console.log(treatments);
     });
+  };
+
+  const fetchMedicines = async () => {
+    let medicines = await getDocs(collection(db, "medicine"));
+    setMedicineList(
+      medicines.docs.map((med) => ({
+        id: med.id,
+        name: med.data().name,
+        detail: med.data().detail,
+      }))
+    );
   };
 
   const deletePet = () => {
@@ -119,6 +133,7 @@ const Pet = () => {
 
   useEffect(() => {
     getPetDoc(petId);
+    fetchMedicines();
   }, []);
 
   useEffect(() => {
@@ -213,10 +228,15 @@ const Pet = () => {
             >
               <div className="d-flex w-100 justify-content-between">
                 <h5 className="mb-1">
-                  {treatment.created.toDate().toString()}
+                  {new Date(treatment.created.toMillis()).toLocaleString()}
                 </h5>
               </div>
               <p className="mb-1">{treatment.treatment}</p>
+              <div>
+                ยาที่ใช้:{" "}
+                {medicinesList.find((med) => med.id === treatment.medicine)
+                  ?.name ?? "ไม่พบยารักษาในรายการ"}
+              </div>
             </a>
           ))}
         </div>
