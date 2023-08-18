@@ -23,7 +23,7 @@ export default function EditMedicine({
   const onSumitForm = async (e: FormEvent) => {
     e.preventDefault();
     if (medicine.detail && medicine.name) {
-      await updateDoc(doc(db, "medicine", medicine.id), {
+      updateDoc(doc(db, "medicine", medicine.id), {
         name: medicine.name,
         detail: medicine.detail,
       });
@@ -31,7 +31,11 @@ export default function EditMedicine({
     }
   };
   return (
-    <Modal modalLable={`แก้ไขข้อมูลยารักษา ${medicineData.name}`} isOpen={isOpen} onClose={onClose}>
+    <Modal
+      modalLable={`แก้ไขข้อมูลยารักษา ${medicineData.name}`}
+      isOpen={isOpen}
+      onClose={onClose}
+    >
       <form onSubmit={onSumitForm}>
         <input
           type="text"
