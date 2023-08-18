@@ -22,10 +22,10 @@ const PetList = () => {
 
   const petsFilter = pets.filter(
     (pet) =>
-      pet.name.includes(keyword) ||
-      pet.description.includes(keyword) ||
-      (pet.type && pet?.type?.includes(keyword)) ||
-      (pet.gender && pet.gender.includes(keyword))
+      pet.name.toLowerCase().includes(keyword.toLowerCase()) ||
+      pet.description.toLowerCase().includes(keyword.toLocaleLowerCase()) ||
+      (pet.type && pet?.type?.includes(keyword.toLowerCase())) ||
+      (pet.gender && pet.gender.includes(keyword.toLocaleLowerCase()))
   );
 
   useEffect(() => {
@@ -145,7 +145,7 @@ const PetList = () => {
                     >
                       ดูรายละเอียด
                     </Link>
-                 </div>
+                  </div>
                 </div>
               </div>
             </div>
