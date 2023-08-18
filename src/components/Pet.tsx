@@ -102,6 +102,12 @@ const Pet = () => {
     getPetDoc(petId);
   }, []);
 
+  useEffect(() => {
+    if (pet?.name) {
+      document.title = `${pet.name} | pet clinic`;
+    }
+  }, [pet]);
+
   const renderPetTypeIcon = (type: string) => {
     switch (type) {
       case "สุนัข":
@@ -133,7 +139,7 @@ const Pet = () => {
         <img
           src={pet && pet.picture ? pet.picture : imagePaw}
           className="shadow rounded-circle"
-          style={{ width: 200 }}
+          style={{ width: 200, height: 200, objectFit: "cover" }}
           alt={pet ? pet.name : ""}
         />
       </div>
