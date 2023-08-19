@@ -38,7 +38,6 @@ class StorageLocal {
       let get_prefs = localStorage.getItem("prefs") ?? "{}";
       let prefs_obj = JSON.parse(get_prefs);
       if (prefs_obj) this.prefs = { ...this.prefs, ...prefs_obj };
-      console.log(this.prefs);
     } catch (err) {}
   }
   getAll() {

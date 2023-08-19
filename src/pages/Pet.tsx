@@ -85,7 +85,6 @@ const Pet = () => {
           treatment: doc.data().treatment,
         }))
       );
-      console.log(treatments);
     });
   };
 

@@ -18,7 +18,6 @@ function Modal({
   const handleClose = (
     e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>
   ) => {
-    console.log(e.currentTarget.className);
     // @ts-ignore
     if (e.target.className === "modalContainer") {
       onClose();
