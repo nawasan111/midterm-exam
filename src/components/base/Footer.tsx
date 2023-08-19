@@ -12,6 +12,13 @@ export default function Footer() {
         <a className="navbar-brand" href="#">
           Footer
         </a>
+        <a
+          className="nav-link text-white"
+          target="_blank"
+          href="https://github.com/nawasan111/midterm-exam"
+        >
+          source code
+        </a>
       </div>
     </footer>
   );

@@ -48,11 +48,11 @@ function Home({ uid, setUid, uname }: HomeProps) {
           >
             <img
               width={30}
-              className="me-3"
+              className="me-2"
               src="/google.png"
               alt="google logo"
             />
-            logout
+           ออกจากระบบ 
           </button>
         </div>
       ) : (
@@ -69,7 +69,7 @@ function Home({ uid, setUid, uname }: HomeProps) {
           <h3>กรุณาเข้าสู่ระบบเพื่อการใช้งานเว็บไซต์</h3>
           <div className="text-center">
             <button
-              className="btn my-3"
+              className="btn my-2"
               style={{
                 borderColor: prefs.prefs.color.primary,
                 borderWidth: "2px",
@@ -83,7 +83,7 @@ function Home({ uid, setUid, uname }: HomeProps) {
                 src="/google.png"
                 alt="google logo"
               />
-              login
+              เข้าสู่ระบบ
             </button>
           </div>
         </div>
