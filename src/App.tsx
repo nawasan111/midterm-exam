@@ -39,7 +39,8 @@ function App() {
           fontFamily: prefs.getAll().fontFamily,
           display: "flex",
           flexDirection: "row",
-          minHeight: "75rem",
+          minHeight: "100dvh",
+          paddingBottom: "4.5rem",
           paddingTop: "4.5rem",
         }}
       >
