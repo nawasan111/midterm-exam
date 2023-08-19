@@ -60,7 +60,7 @@ const EditPet: FC<EditPetProps> = ({
         const uploadTask = uploadBytesResumable(storageRef, picture);
         uploadTask.on(
           "state_changed",
-          (snapshot) => {}, // ขณะกำลัง upload
+          () => {}, // ขณะกำลัง upload
           (err) => console.log(err), // ถ้า error ให้ทำอะไร
           () => {
             // ถ้า upload สำเร็จ ให้ทำอะไร
