@@ -59,7 +59,13 @@ body {
 .menu-top {
   display: flex;
 }
+.offcanvas-backdrop {
+  display: none;
+}
 @media only screen and (max-width: 767px) {
+  .offcanvas-backdrop {
+    display: block;
+  }
   .btn-menu {
     display: inline-block;
   }
