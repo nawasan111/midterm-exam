@@ -5,14 +5,19 @@ import StorageLocal from "../assets/js/localStorage";
 export interface HomeProps {
   uid: string;
   setUid: Function;
+  uname: {
+    set: Function;
+    value: string;
+  };
 }
 
-function Home({ uid, setUid }: HomeProps) {
+function Home({ uid, setUid, uname }: HomeProps) {
   const prefs = new StorageLocal();
   const getLogin = async () => {
     const auth = getAuth();
     const data = await signInWithPopup(auth, googleProvider);
     setUid(data.user.uid);
+    uname.set(data.user.displayName);
   };
   const getLogout = async () => {
     const auth = getAuth();
@@ -21,7 +26,17 @@ function Home({ uid, setUid }: HomeProps) {
   return (
     <div>
       {uid.length ? (
-        <div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            minHeight: "60vh",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          className="text-center"
+        >
+          <h3>คุณเข้าสู่ระบบในชื่อ {uname.value}</h3>
           <button
             style={{
               borderColor: prefs.prefs.color.primary,
@@ -41,27 +56,36 @@ function Home({ uid, setUid }: HomeProps) {
           </button>
         </div>
       ) : (
-        <div>
-          <div>
-            กรุณาเข้าสู่ระบบเพื่อการใช้การเว็บไซต์ได้อย่างเต็มประสิทธิภาพ
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            minHeight: "60vh",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          className="text-center"
+        >
+          <h3>กรุณาเข้าสู่ระบบเพื่อการใช้การเว็บไซต์</h3>
+          <div className="text-center">
+            <button
+              className="btn my-3"
+              style={{
+                borderColor: prefs.prefs.color.primary,
+                borderWidth: "2px",
+                borderStyle: "solid",
+              }}
+              onClick={getLogin}
+            >
+              <img
+                width={30}
+                className="me-3"
+                src="/google.png"
+                alt="google logo"
+              />
+              login
+            </button>
           </div>
-          <button
-            className="btn "
-            style={{
-              borderColor: prefs.prefs.color.primary,
-              borderWidth: "2px",
-              borderStyle: "solid",
-            }}
-            onClick={getLogin}
-          >
-            <img
-              width={30}
-              className="me-3"
-              src="/google.png"
-              alt="google logo"
-            />
-            login
-          </button>
         </div>
       )}
     </div>

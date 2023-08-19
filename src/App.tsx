@@ -20,12 +20,14 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 function App() {
   const [uid, setUid] = useState("");
+  const [uname, setUname] = useState("");
   const prefs = new StorageLocal();
   useEffect(() => {
     document.title = "pet clinic";
     const auth = getAuth();
     onAuthStateChanged(auth, (data) => {
       setUid(data?.uid ?? "");
+      setUname(data?.displayName ?? "");
     });
   }, []);
 
@@ -44,7 +46,16 @@ function App() {
         <Sidebar />
         <main className="container">
           <Routes>
-            <Route path="/" element={<Home setUid={setUid} uid={uid} />} />
+            <Route
+              path="/"
+              element={
+                <Home
+                  uname={{ set: setUname, value: uname }}
+                  setUid={setUid}
+                  uid={uid}
+                />
+              }
+            />
             {uid.length && (
               <>
                 <Route path="/pets" element={<PetList />} />
@@ -54,7 +65,16 @@ function App() {
                 <Route path="/prefs" element={<Prefs />} />
               </>
             )}
-            <Route path="*" element={<Home setUid={setUid} uid={uid} />} />
+            <Route
+              path="*"
+              element={
+                <Home
+                  uname={{ set: setUname, value: uname }}
+                  setUid={setUid}
+                  uid={uid}
+                />
+              }
+            />
           </Routes>
         </main>
       </div>
