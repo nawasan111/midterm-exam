@@ -4,31 +4,17 @@
 
 ## Get started
 
+- setup firebase
+
+  - เปิดใช้ Firestore Database
+  - เปิดใช้ Authentication
+  - เปิดใช้ Storage
+
 - clone this repo
-- install dependencies with command bellow
-  using `pnpm`
+- install dependencies with `pnpm install` or `npm install`
 
-```
-pnpm install
-```
-
-or using `npm`
-
-```
-npm install
-```
-
-- to run web on dev mode, run command bellow
-
-```
-pnpm dev
-```
-
-or using `npm`
-
-```
-pnpm run dev
-```
+- change firebase config at `./src/assets/js/firebase.ts`
+- to run web on dev mode, run `pnpm dev` or `pnpm run dev`
 
 ---
 
@@ -36,12 +22,11 @@ pnpm run dev
 
 Midterm Exam
 
-
-| -- | -- |
-| -- | -- |
-| Type | Take-home |
-| Mark | 20 points |
-| Date start | 16/08/2023 00:00 |
+| --          | --               |
+| ----------- | ---------------- |
+| Type        | Take-home        |
+| Mark        | 20 points        |
+| Date start  | 16/08/2023 00:00 |
 | Date finish | 19/08/2023 23:59 |
 
 โจทย์
