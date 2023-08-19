@@ -12,6 +12,9 @@ export default function Sidebar() {
       tabIndex={-1}
       id="offcanvasWithBothOptions"
       aria-labelledby="offcanvasWithBothOptionsLabel"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasWithBothOptions"
+      aria-controls="offcanvasWithBothOptions"
       style={{ width: 230 }}
     >
       <Link
