@@ -66,7 +66,7 @@ function Home({ uid, setUid, uname }: HomeProps) {
           }}
           className="text-center"
         >
-          <h3>กรุณาเข้าสู่ระบบเพื่อการใช้การเว็บไซต์</h3>
+          <h3>กรุณาเข้าสู่ระบบเพื่อการใช้งานเว็บไซต์</h3>
           <div className="text-center">
             <button
               className="btn my-3"
