@@ -44,7 +44,6 @@ const Pet = () => {
     );
     onSnapshot(queryPet, (snap) => {
       if (snap.docs.length) {
-        console.log(snap.docs[0].data());
         const petData = snap.docs[0].data();
         const ownerId = petData.owner;
         setPet({
@@ -107,7 +106,6 @@ const Pet = () => {
         {
           label: "ตกลง",
           onClick: async () => {
-            console.log(pet?.picture);
             let url = new URL(pet?.picture ?? "").pathname.toString();
             let pathname = url.split("/");
             let pathnameLast = pathname[pathname.length - 1];

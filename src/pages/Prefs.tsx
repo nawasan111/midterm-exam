@@ -11,7 +11,6 @@ export default function Prefs() {
   };
   useEffect(() => {
     document.title = "settings";
-    console.log(prefsState.color);
   }, []);
   return (
     <main>

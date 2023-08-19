@@ -24,7 +24,6 @@ function App() {
   const prefs = new StorageLocal();
   useEffect(() => {
     document.title = "pet clinic";
-    console.log(screen.width);
     const auth = getAuth();
     onAuthStateChanged(auth, (data) => {
       setUid(data?.uid ?? "");
